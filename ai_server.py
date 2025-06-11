@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 def analyze(text):
+    print(text)
     if "forest" in text or "green" in text:
         return {"background_color": "green"}
     elif "sky" in text or "blue" in text:
@@ -19,8 +20,9 @@ def index():
 @app.route('/analyze', methods=['POST'])
 def handle_analyze():
     data = request.get_json()
+    print(data)
     text = data.get("text", "")
-    result = analyze(text.lower())
+    result = analyze(data)
     return jsonify(result)
 
 if __name__ == '__main__':
